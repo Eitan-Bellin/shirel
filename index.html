@@ -1167,8 +1167,8 @@
     }
 
     .ed-photo {
-      background: url('https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=1000&q=88&auto=format&fit=crop')
-                  center/cover no-repeat;
+      background: url('https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=1000&q=88&auto=format&fit=crop')
+                  center top/cover no-repeat;
       position: relative;
       overflow: hidden;
     }
@@ -1543,13 +1543,15 @@
     }
 
     .ba-before {
+      /* Shows on LEFT — labeled "אחרי הטיפול" — clean bright skin */
       clip-path: inset(0 50% 0 0);
-      filter: grayscale(.85) brightness(.78) contrast(1.05);
+      filter: brightness(1.09) saturate(1.08) contrast(.95);
       z-index: 1;
     }
 
     .ba-after {
-      filter: brightness(1.02) saturate(1.05);
+      /* Shows on RIGHT — labeled "לפני הטיפול" — troubled skin simulation */
+      filter: contrast(1.35) saturate(2.2) brightness(.72) hue-rotate(14deg) sepia(.25);
       z-index: 0;
     }
 
@@ -1698,6 +1700,52 @@
 
     @media (hover: none) { #cursor-label { display: none; } }
 
+    /* ============================================================
+       HERO BRAND BLOCK — wordmark + subtitle below logo
+    ============================================================ */
+    .hero-brand-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      margin-top: 14px;
+      pointer-events: none;
+    }
+
+    .hero-ornament {
+      width: 44px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(184,148,104,.5), transparent);
+      margin-bottom: 6px;
+    }
+
+    .hero-wordmark {
+      font-family: var(--f-brand);
+      font-weight: 300;
+      font-size: clamp(.88rem, 1.6vw, 1.12rem);
+      letter-spacing: .58em;
+      text-transform: uppercase;
+      color: rgba(184,148,104,.78);
+      white-space: nowrap;
+      transition: color .3s ease;
+    }
+
+    .hero-subtitle-loc {
+      font-family: var(--f-mono);
+      font-size: .54rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: rgba(184,148,104,.42);
+      white-space: nowrap;
+    }
+
+    /* ============================================================
+       HERO CORNER IMPROVED POSITIONING
+    ============================================================ */
+    .hero-corner {
+      font-size: .62rem;
+    }
+
   </style>
 </head>
 <body>
@@ -1781,6 +1829,13 @@
       <!-- spacer so the layer has height -->
       <div style="width:210px;height:210px;visibility:hidden;" aria-hidden="true"></div>
 
+      <!-- Wordmark + location line below logo -->
+      <div class="hero-brand-block">
+        <div class="hero-ornament"></div>
+        <span class="hero-wordmark" id="hero-wordmark-txt">SHIREL COSMETIC</span>
+        <span class="hero-subtitle-loc">קוסמטיקאית קלינית &nbsp;·&nbsp; מעלות-תרשיחא</span>
+      </div>
+
     </div>
 
     <!-- Tagline + CTA layer -->
@@ -1800,7 +1855,7 @@
            style="width:140px;height:140px;object-fit:contain;
                   filter:brightness(0) invert(1) opacity(.82);" />
     </div>
-    <div class="hero-mob-brand" style="display:none;"></div>
+    <div class="hero-mob-brand">SHIREL COSMETIC</div>
     <p class="hero-mob-tag">טיפול קוסמטי קליני.<br>תוצאות אמיתיות.</p>
     <div class="hero-mob-ctas">
       <a href="#contact" class="btn btn-bronze">לתיאום טיפול</a>
@@ -1905,7 +1960,7 @@
   <div class="services-grid" data-fade>
 
     <div class="svc-card">
-      <div class="svc-photo" style="background-image:url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&q=85&auto=format&fit=crop');"></div>
+      <div class="svc-photo" style="background-image:url('https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=900&q=85&auto=format&fit=crop');background-position:center top;"></div>
       <div class="svc-overlay"></div>
       <div class="svc-content">
         <span class="svc-num">01</span>
@@ -1917,7 +1972,7 @@
     </div>
 
     <div class="svc-card">
-      <div class="svc-photo" style="background-image:url('https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=900&q=85&auto=format&fit=crop');"></div>
+      <div class="svc-photo" style="background-image:url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&q=85&auto=format&fit=crop');background-position:center;"></div>
       <div class="svc-overlay"></div>
       <div class="svc-content">
         <span class="svc-num">02</span>
@@ -1929,7 +1984,7 @@
     </div>
 
     <div class="svc-card">
-      <div class="svc-photo" style="background-image:url('https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=900&q=85&auto=format&fit=crop');"></div>
+      <div class="svc-photo" style="background-image:url('https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=900&q=85&auto=format&fit=crop');background-position:center;"></div>
       <div class="svc-overlay"></div>
       <div class="svc-content">
         <span class="svc-num">03</span>
@@ -1941,7 +1996,7 @@
     </div>
 
     <div class="svc-card">
-      <div class="svc-photo" style="background-image:url('https://images.unsplash.com/photo-1571875257727-256c39da42af?w=900&q=85&auto=format&fit=crop');"></div>
+      <div class="svc-photo" style="background-image:url('https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=900&q=85&auto=format&fit=crop');background-position:center;"></div>
       <div class="svc-overlay"></div>
       <div class="svc-content">
         <span class="svc-num">04</span>
@@ -1959,13 +2014,13 @@
 <!-- GALLERY STRIP -->
 <div class="gallery-strip" aria-hidden="true">
   <div class="gallery-cell" id="gc1">
-    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=700&q=80&auto=format&fit=crop" alt="" />
+    <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=700&q=80&auto=format&fit=crop" alt="" style="object-position:center top;" />
   </div>
   <div class="gallery-cell" id="gc2">
-    <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=900&q=80&auto=format&fit=crop" alt="" />
+    <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=900&q=80&auto=format&fit=crop" alt="" />
   </div>
   <div class="gallery-cell" id="gc3">
-    <img src="https://images.unsplash.com/photo-1590156562745-5f45a09c1a9b?w=700&q=80&auto=format&fit=crop" alt="" />
+    <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=700&q=80&auto=format&fit=crop" alt="" />
   </div>
 </div>
 
@@ -1979,8 +2034,8 @@
     <h2 class="sec-h" data-fade>לפני ואחרי טיפול</h2>
 
     <div class="ba-slider" id="ba-slider-1" data-fade>
-      <div class="ba-after" style="background-image:url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1200&q=88&auto=format&fit=crop');"></div>
-      <div class="ba-before" style="background-image:url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1200&q=88&auto=format&fit=crop');"></div>
+      <div class="ba-after" style="background-image:url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1200&q=88&auto=format&fit=crop');background-position:center top;"></div>
+      <div class="ba-before" style="background-image:url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1200&q=88&auto=format&fit=crop');background-position:center top;"></div>
       <div class="ba-handle" id="ba-handle-1">
         <div class="ba-handle-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1989,10 +2044,10 @@
           </svg>
         </div>
       </div>
-      <span class="ba-label lbl-after">אחרי</span>
-      <span class="ba-label lbl-before">לפני</span>
+      <span class="ba-label lbl-after">אחרי הטיפול</span>
+      <span class="ba-label lbl-before">לפני הטיפול</span>
     </div>
-    <p class="ba-caption" data-fade>גרור את הסמן שמאלה וימינה לצפייה בהבדל</p>
+    <p class="ba-caption" data-fade>גרור שמאלה וימינה לצפייה בהבדל בעור לאחר סדרת טיפולי פנים קלינית</p>
   </div>
 </section>
 
