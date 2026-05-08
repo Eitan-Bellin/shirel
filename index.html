@@ -1133,29 +1133,100 @@
     }
 
     /* ============================================================
-       FOOTER
+       FOOTER  — multi-column luxury redesign
     ============================================================ */
     footer {
-      background: #181210;
+      background: #100D0B;
       border-top: 1px solid rgba(255,255,255,.05);
-      padding: 26px 52px;
+      display: block;
+      padding: 0;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 44px 52px;
+      padding: 68px 52px 52px;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .footer-brand-logo { display: inline-block; }
+    .footer-brand-logo img {
+      height: 46px; width: auto;
+      filter: brightness(0) invert(1) opacity(.28);
+      transition: filter .3s ease;
+    }
+    .footer-brand-logo:hover img { filter: brightness(0) invert(1) opacity(.52); }
+    .footer-brand-tag {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: .94rem;
+      color: rgba(245,241,235,.24);
+      line-height: 1.72;
+      margin-top: 18px;
+      max-width: 210px;
+    }
+    .footer-col-head {
+      font-family: var(--f-mono);
+      font-size: .56rem;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: var(--bronze);
+      opacity: .55;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .footer-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+    .footer-nav-list a {
+      font-size: .82rem;
+      color: rgba(245,241,235,.34);
+      text-decoration: none;
+      letter-spacing: .02em;
+      transition: color .2s;
+    }
+    .footer-nav-list a:hover { color: rgba(245,241,235,.68); }
+    .footer-contact-group { display: flex; flex-direction: column; gap: 15px; }
+    .footer-contact-item  { display: flex; flex-direction: column; gap: 3px; }
+    .footer-contact-lbl   { font-family: var(--f-mono); font-size: .53rem; letter-spacing: .22em; color: rgba(184,148,104,.4); }
+    .footer-contact-val   { font-size: .82rem; color: rgba(245,241,235,.4); text-decoration: none; transition: color .2s; }
+    .footer-contact-val:hover { color: var(--bronze-l); }
+    .footer-hours-list { display: flex; flex-direction: column; gap: 0; }
+    .footer-hours-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .footer-hours-row:first-child { padding-top: 0; }
+    .footer-hours-day  { font-size: .78rem; color: rgba(245,241,235,.3); }
+    .footer-hours-time { font-family: var(--f-mono); font-size: .69rem; color: rgba(184,148,104,.46); letter-spacing: .04em; }
+    .footer-bottom {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 18px 52px;
     }
-
-    .footer-logo img {
-      height: 42px;
-      width: auto;
-      filter: brightness(0) invert(1) opacity(.35);
-      transition: filter .3s ease;
+    .footer-bottom-copy { font-size: .67rem; color: rgba(245,241,235,.18); letter-spacing: .07em; }
+    .footer-bottom-right { display: flex; gap: 18px; align-items: center; }
+    .footer-bottom-link {
+      font-family: var(--f-mono); font-size: .64rem;
+      color: rgba(245,241,235,.22); text-decoration: none;
+      letter-spacing: .1em; transition: color .2s;
     }
-    .footer-logo:hover img {
-      filter: brightness(0) invert(1) opacity(.6);
+    .footer-bottom-link:hover { color: var(--bronze-l); }
+    .footer-bottom-sep { width: 1px; height: 13px; background: rgba(255,255,255,.1); }
+    @media (max-width: 1000px) {
+      .footer-top { grid-template-columns: 1fr 1fr; padding: 52px 32px 44px; gap: 36px 40px; }
     }
-
-    .footer-copy { font-size: .7rem; color: rgba(245,241,235,.22); letter-spacing: .07em; }
-    .footer-ig   { font-family: var(--f-mono); font-size: .7rem; color: rgba(245,241,235,.32); letter-spacing: .12em; }
+    @media (max-width: 600px) {
+      .footer-top { grid-template-columns: 1fr; padding: 44px 20px 36px; gap: 30px; }
+      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; padding: 18px 20px; }
+      .footer-bottom-right { flex-wrap: wrap; justify-content: center; }
+    }
 
     /* ============================================================
        EDITORIAL SPLIT  (between gallery strip + pricing)
@@ -1746,6 +1817,81 @@
       font-size: .62rem;
     }
 
+    /* ============================================================
+       HERO AURORA ORBS
+       mix-blend-mode:screen → invisible on cream, glowing on dark
+    ============================================================ */
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      will-change: transform;
+      z-index: 0;
+    }
+    .hero-orb-1 {
+      width: 50vw; height: 50vw;
+      background: radial-gradient(circle, rgba(184,148,104,.55) 0%, transparent 65%);
+      top: -18%; right: 2%;
+      animation: orbDrift 17s ease-in-out infinite alternate;
+    }
+    .hero-orb-2 {
+      width: 38vw; height: 38vw;
+      background: radial-gradient(circle, rgba(155,179,178,.42) 0%, transparent 65%);
+      bottom: -12%; left: 0%;
+      animation: orbDrift 22s ease-in-out 4s infinite alternate-reverse;
+    }
+    @keyframes orbDrift {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(6%, 9%) scale(1.09); }
+    }
+    @media (max-width: 768px) { .hero-orb { display: none; } }
+
+    /* ============================================================
+       TESTIMONIAL DOTS NAV
+    ============================================================ */
+    .t-dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 28px;
+    }
+    .t-dot {
+      width: 6px; height: 6px;
+      border-radius: 3px;
+      background: var(--rule);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background .3s ease, width .35s cubic-bezier(.4,0,.2,1);
+      appearance: none;
+      flex-shrink: 0;
+    }
+    .t-dot.active {
+      background: var(--bronze);
+      width: 24px;
+    }
+    @media (hover: none) { .t-dot { cursor: auto; } }
+
+    /* ============================================================
+       SERVICE CARD 3D TILT — enable preserve-3d
+    ============================================================ */
+    .svc-card {
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    /* ============================================================
+       B/A SLIDER HANDLE GLOW ON HOVER
+    ============================================================ */
+    .ba-slider:hover .ba-handle-btn {
+      box-shadow: 0 2px 18px rgba(184,148,104,.45);
+    }
+    .ba-handle {
+      transition: left 0s; /* set by JS — no CSS transition interference */
+    }
+
   </style>
 </head>
 <body>
@@ -1808,6 +1954,10 @@
      SECTION 1 — HERO
 ============================================================ -->
 <section id="hero">
+
+  <!-- Aurora background orbs (mix-blend-mode:screen → auto-hide on cream bg) -->
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
 
   <!-- Desktop: GSAP 3D -->
   <div class="hero-3d-wrap" id="hero-wrap">
@@ -2393,6 +2543,7 @@
 
   </div>
 
+  <div class="t-dots" role="tablist" aria-label="ניווט עדויות"></div>
 
 </section>
 
@@ -2428,14 +2579,83 @@
      FOOTER
 ============================================================ -->
 <footer>
-  <a href="#" class="footer-logo" aria-label="חזרה לראש הדף">
-    <img src="logo.jpeg" alt="שיראל קוסמטיק" />
-  </a>
-  <div style="text-align:center;">
-    <span class="footer-copy">© <span id="yr"></span> Shirel Cosmetic. כל הזכויות שמורות.</span>
-    <span style="font-family:var(--f-mono);font-size:.6rem;color:rgba(245,241,235,.18);letter-spacing:.1em;display:block;margin-top:4px;">קוסמטיקאית קלינית מוסמכת · מעלות-תרשיחא</span>
+  <div class="footer-top">
+
+    <!-- Brand col -->
+    <div>
+      <a href="#" class="footer-brand-logo" aria-label="חזרה לראש הדף">
+        <img src="logo.jpeg" alt="שיראל קוסמטיק" />
+      </a>
+      <p class="footer-brand-tag">קוסמטיקה קלינית מוסמכת.<br>תוצאות אמיתיות, טיפול אישי.</p>
+    </div>
+
+    <!-- Navigation col -->
+    <div>
+      <span class="footer-col-head">ניווט</span>
+      <ul class="footer-nav-list">
+        <li><a href="#about">אודות</a></li>
+        <li><a href="#services">טיפולים</a></li>
+        <li><a href="#pricing">מחירון</a></li>
+        <li><a href="#how">התהליך</a></li>
+        <li><a href="#testimonials">המלצות</a></li>
+        <li><a href="#contact">צור קשר</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact col -->
+    <div>
+      <span class="footer-col-head">יצירת קשר</span>
+      <div class="footer-contact-group">
+        <div class="footer-contact-item">
+          <span class="footer-contact-lbl">טלפון</span>
+          <a href="tel:0508866229" class="footer-contact-val">050-886-6229</a>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-lbl">WhatsApp</span>
+          <a href="https://wa.me/972508866229" target="_blank" rel="noopener" class="footer-contact-val">שלחי הודעה ↗</a>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-lbl">כתובת</span>
+          <span class="footer-contact-val">וינקה 7, מעלות-תרשיחא</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-lbl">אינסטגרם</span>
+          <a href="https://instagram.com/shirelcosmetic" target="_blank" rel="noopener" class="footer-contact-val">@shirelcosmetic ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hours col -->
+    <div>
+      <span class="footer-col-head">שעות פעילות</span>
+      <div class="footer-hours-list">
+        <div class="footer-hours-row">
+          <span class="footer-hours-day">ראשון – חמישי</span>
+          <span class="footer-hours-time">09:00–19:00</span>
+        </div>
+        <div class="footer-hours-row">
+          <span class="footer-hours-day">שישי</span>
+          <span class="footer-hours-time">בתיאום מראש</span>
+        </div>
+        <div class="footer-hours-row">
+          <span class="footer-hours-day">שבת</span>
+          <span class="footer-hours-time">סגור</span>
+        </div>
+      </div>
+    </div>
+
   </div>
-  <span class="footer-ig">@shirelcosmetic</span>
+
+  <div class="footer-bottom">
+    <span class="footer-bottom-copy">© <span id="yr"></span> Shirel Cosmetic · קוסמטיקאית קלינית מוסמכת · כל הזכויות שמורות</span>
+    <div class="footer-bottom-right">
+      <a href="https://wa.me/972508866229" target="_blank" rel="noopener" class="footer-bottom-link">WhatsApp</a>
+      <span class="footer-bottom-sep" aria-hidden="true"></span>
+      <a href="https://instagram.com/shirelcosmetic" target="_blank" rel="noopener" class="footer-bottom-link">Instagram</a>
+      <span class="footer-bottom-sep" aria-hidden="true"></span>
+      <a href="#" class="footer-bottom-link" aria-label="חזרה לראש הדף">↑ למעלה</a>
+    </div>
+  </div>
 </footer>
 
 
@@ -3028,6 +3248,98 @@ if (cursorLabel && window.matchMedia('(hover: hover)').matches) {
       if (!isOpen) { this.classList.add('open'); }
     });
   });
+}());
+
+/* ================================================================
+   SERVICE CARD 3D TILT  (desktop hover only)
+================================================================ */
+if (window.matchMedia('(hover: hover)').matches) {
+  document.querySelectorAll('.svc-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const cx   = rect.left + rect.width  / 2;
+      const cy   = rect.top  + rect.height / 2;
+      const dx   = (e.clientX - cx) / (rect.width  / 2);
+      const dy   = (e.clientY - cy) / (rect.height / 2);
+      card.style.transform = `perspective(700px) rotateY(${dx * 5}deg) rotateX(${-dy * 4}deg) scale(1.015)`;
+      card.style.transition = 'transform 0.08s ease';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform  = '';
+      card.style.transition = 'transform 0.45s cubic-bezier(.25,.46,.45,.94)';
+    });
+  });
+}
+
+/* ================================================================
+   TESTIMONIAL DOTS
+================================================================ */
+(function initTestimonialDots() {
+  const track    = document.querySelector('.t-track');
+  const dotsWrap = document.querySelector('.t-dots');
+  if (!track || !dotsWrap) return;
+
+  const cards = Array.from(track.querySelectorAll('.t-card-v2'));
+  if (!cards.length) return;
+
+  // Build dots
+  cards.forEach((card, i) => {
+    const btn = document.createElement('button');
+    btn.className = 't-dot' + (i === 0 ? ' active' : '');
+    btn.setAttribute('aria-label', `עדות ${i + 1}`);
+    btn.addEventListener('click', () => {
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    });
+    dotsWrap.appendChild(btn);
+  });
+
+  const dots = dotsWrap.querySelectorAll('.t-dot');
+
+  // Update active dot on scroll
+  track.addEventListener('scroll', () => {
+    const trackLeft = track.getBoundingClientRect().left;
+    let closest = 0, minDist = Infinity;
+    cards.forEach((c, i) => {
+      const dist = Math.abs(c.getBoundingClientRect().left - trackLeft);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === closest));
+  }, { passive: true });
+}());
+
+/* ================================================================
+   BEFORE / AFTER — auto-sweep on first scroll into view
+================================================================ */
+(function initBAAutoSweep() {
+  const slider = document.getElementById('ba-slider-1');
+  if (!slider) return;
+  const before = slider.querySelector('.ba-before');
+  const handle = slider.querySelector('.ba-handle');
+  if (!before || !handle) return;
+
+  let done = false;
+  const obs = new IntersectionObserver(entries => {
+    if (done || !entries[0].isIntersecting) return;
+    done = true;
+    obs.disconnect();
+
+    // Sweep from right edge (0%) → centre (50%) to reveal the "after"
+    const duration = 1500;
+    const startPct = 98;
+    const endPct   = 50;
+    const t0 = performance.now();
+
+    (function step(now) {
+      const p     = Math.min((now - t0) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const pct   = startPct - (startPct - endPct) * eased;
+      before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+      handle.style.left     = pct + '%';
+      if (p < 1) requestAnimationFrame(step);
+    })(performance.now());
+  }, { threshold: 0.45 });
+
+  obs.observe(slider);
 }());
 
 })();
