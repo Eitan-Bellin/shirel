@@ -168,12 +168,20 @@ h3 { font-size: 1.4rem; font-weight: 400; }
   box-shadow: 0 1px 0 var(--rule);
 }
 .nav-logo img {
-  height: 48px;
+  height: 52px;
   width: auto;
   object-fit: contain;
-  transition: height .35s var(--ease);
+  /* White on dark transparent nav */
+  filter: brightness(0) invert(1);
+  opacity: .88;
+  transition: height .35s var(--ease), filter .35s var(--ease), opacity .35s var(--ease);
 }
-#nav.scrolled .nav-logo img { height: 38px; }
+#nav.scrolled .nav-logo img {
+  height: 40px;
+  /* Natural warm brown after canvas removes cream background */
+  filter: none;
+  opacity: 1;
+}
 .nav-links {
   display: flex;
   align-items: center;
@@ -564,8 +572,12 @@ h3 { font-size: 1.4rem; font-weight: 400; }
   background-size: cover;
   background-position: center;
 }
+.ba-after {
+  filter: saturate(1.15) brightness(1.05);
+}
 .ba-before {
-  clip-path: inset(0 50% 0 0);
+  clip-path: inset(0 0 0 50%);
+  filter: saturate(0) brightness(0.82) contrast(1.12);
 }
 .ba-handle {
   position: absolute;
@@ -949,11 +961,13 @@ footer {
   margin: 0 auto;
 }
 .footer-brand .footer-logo-link img {
-  height: 52px;
+  height: 56px;
   width: auto;
   object-fit: contain;
   margin-bottom: 18px;
-  filter: brightness(1.1);
+  /* Warm ivory on dark footer */
+  filter: brightness(0) invert(1) sepia(0.15);
+  opacity: .82;
 }
 .footer-brand p {
   font-size: .88rem;
