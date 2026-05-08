@@ -127,7 +127,8 @@
       var rect = baSlider.getBoundingClientRect();
       var pct  = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
       baHandle.style.left = (pct * 100) + '%';
-      baBefore.style.clipPath = 'inset(0 ' + ((1 - pct) * 100) + '% 0 0)';
+      /* RTL: before panel clips from left, sits on right side of handle */
+      baBefore.style.clipPath = 'inset(0 0 0 ' + (pct * 100) + '%)';
     }
 
     baSlider.addEventListener('mousedown', function (e) {
@@ -162,10 +163,11 @@
     baObserver.observe(baSlider);
 
     function autoSweep() {
-      var duration = 1600;
+      var duration = 1800;
       var start = null;
-      var startPct = 0.5;
-      var endPct   = 0.25;
+      /* Start mostly showing "after" (left/colored), sweep to reveal "before" (right/grey) */
+      var startPct = 0.78;
+      var endPct   = 0.22;
 
       function animFrame(ts) {
         if (!start) start = ts;
@@ -173,10 +175,9 @@
         var eased = progress < 0.5
           ? 2 * progress * progress
           : -1 + (4 - 2 * progress) * progress;
-        var rect = baSlider.getBoundingClientRect();
         var pct = startPct + (endPct - startPct) * eased;
         baHandle.style.left = (pct * 100) + '%';
-        baBefore.style.clipPath = 'inset(0 ' + ((1 - pct) * 100) + '% 0 0)';
+        baBefore.style.clipPath = 'inset(0 0 0 ' + (pct * 100) + '%)';
         if (progress < 1) requestAnimationFrame(animFrame);
       }
       requestAnimationFrame(animFrame);
@@ -199,5 +200,47 @@
       item.classList.toggle('open', !isOpen);
     });
   });
+
+  /* ── Logo background removal (Canvas API) ───────────────────── */
+  function removeBg(imgEl) {
+    if (!imgEl || !imgEl.complete || !imgEl.naturalWidth) return;
+    var canvas = document.createElement('canvas');
+    canvas.width  = imgEl.naturalWidth;
+    canvas.height = imgEl.naturalHeight;
+    var ctx = canvas.getContext('2d');
+    try {
+      ctx.drawImage(imgEl, 0, 0);
+      var id  = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      var px  = id.data;
+      /* Sample background colour from top-left corner */
+      var bgR = px[0], bgG = px[1], bgB = px[2];
+
+      for (var i = 0; i < px.length; i += 4) {
+        var dr   = px[i]   - bgR;
+        var dg   = px[i+1] - bgG;
+        var db   = px[i+2] - bgB;
+        var dist = Math.sqrt(dr*dr + dg*dg + db*db);
+        if (dist < 58) {
+          /* Smooth fade near edges so line-art doesn't get hard-cut */
+          px[i+3] = dist < 38 ? 0 : Math.round(((dist - 38) / 20) * 255);
+        }
+      }
+      ctx.putImageData(id, 0, 0);
+      imgEl.src = canvas.toDataURL('image/png');
+    } catch (e) { /* cross-origin or security error — keep original */ }
+  }
+
+  function applyLogoRemoval() {
+    removeBg(document.getElementById('nav-logo-img'));
+    removeBg(document.getElementById('footer-logo-img'));
+  }
+
+  /* Run after images load (they may still be loading when script executes) */
+  var navLogoImg = document.getElementById('nav-logo-img');
+  if (navLogoImg && navLogoImg.complete) {
+    applyLogoRemoval();
+  } else if (navLogoImg) {
+    navLogoImg.addEventListener('load', applyLogoRemoval);
+  }
 
 })();
